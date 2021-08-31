@@ -1,18 +1,29 @@
 package com.tsluxurycars.tsluxurycars.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import org.springframework.data.annotation.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Vehicle {
+    public Vehicle(String make, String model, int year, String engine, double price) {
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.engine = engine;
+        this.price = price;
+    }
+
     @Id
+    @GeneratedValue
     private Long id;
 
     private String make;

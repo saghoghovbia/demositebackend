@@ -23,7 +23,8 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.20'
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.4'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc:2.5.4'
+	implementation 'com.microsoft.sqlserver:mssql-jdbc:9.4.0.jre11'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.4'
 }
 
 test {
