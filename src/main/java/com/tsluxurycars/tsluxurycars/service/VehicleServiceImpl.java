@@ -28,7 +28,7 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicleRepository.save(newVehicle);
     }
 
-    // TODO: CAN I ONLY PROVIDE THE UPDATE FIELDS INSTEAD OF THE WHOLE OBJECT?
+    // TODO: SHOULD I ONLY PROVIDE THE UPDATE FIELDS INSTEAD OF THE WHOLE OBJECT?
     public Vehicle updateVehicle(Vehicle newVehicle, Long id) {
         return vehicleRepository.findById(id)
                 .map(vehicle -> {
@@ -45,6 +45,7 @@ public class VehicleServiceImpl implements VehicleService {
                 });
     }
 
+    // TODO: NEED TO ADD NOT FOUND EXCEPTION
     public void deleteVehicle(Long id) {
         vehicleRepository.deleteById(id);
     }

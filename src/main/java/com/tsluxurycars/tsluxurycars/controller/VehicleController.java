@@ -2,9 +2,9 @@ package com.tsluxurycars.tsluxurycars.controller;
 
 import com.tsluxurycars.tsluxurycars.exception.VehicleNotFoundException;
 import com.tsluxurycars.tsluxurycars.model.Vehicle;
-
 import com.tsluxurycars.tsluxurycars.service.VehicleService;
 import com.tsluxurycars.tsluxurycars.service.VehicleServiceImpl;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
