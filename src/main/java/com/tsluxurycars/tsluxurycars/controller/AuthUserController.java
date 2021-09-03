@@ -24,4 +24,11 @@ public class AuthUserController {
     public ResponseEntity<AuthUser> signup(@RequestBody AuthUser newAuthUser) {
         return new ResponseEntity<>(authUserService.createAuthUser(newAuthUser), HttpStatus.CREATED);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody AuthUser authUser) {
+//        AuthUser user = AuthUserService
+
+        return null;
+    }
 }
