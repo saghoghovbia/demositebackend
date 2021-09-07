@@ -20,7 +20,7 @@ public class VehicleController {
         this.vehicleService = vehicleServiceImpl;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Vehicle>> getAllVehicles() {
         return ResponseEntity.ok(vehicleService.getAllVehicles());
     }
