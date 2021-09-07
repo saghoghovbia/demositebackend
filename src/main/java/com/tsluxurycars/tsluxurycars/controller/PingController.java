@@ -12,4 +12,9 @@ public class PingController {
     public ResponseEntity<String> ping() {
         return ResponseEntity.ok("Pong!");
     }
+
+    @GetMapping("/secure")
+    public ResponseEntity<String> hello() {
+        return ResponseEntity.ok("You hit a secure endpoint");
+    }
 }
