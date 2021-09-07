@@ -25,6 +25,7 @@ steps:
     targetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 - task: AzureWebApp@1
@@ -33,5 +34,6 @@ steps:
     appType: 'webAppLinux'
     appName: 'ts-luxury-cars-back-end'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+
     runtimeStack: 'JAVA|11-java11'
     startUpCommand: 'java -jar ts-luxury-cars-back-end-0.0.1-SNAPSHOT.jar'
