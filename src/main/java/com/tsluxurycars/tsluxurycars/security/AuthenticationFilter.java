@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import static com.tsluxurycars.tsluxurycars.constants.SecurityConstants.EXPIRATION_TIME;
 import static com.tsluxurycars.tsluxurycars.constants.SecurityConstants.KEY;
@@ -42,7 +44,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authUser.getUsername(),
-                            authUser.getPassword(), new ArrayList<>())
+                            authUser.getPassword(), authUser.getAuthorities().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()))
             );
         } catch (IOException e) {
             throw new RuntimeException(e);

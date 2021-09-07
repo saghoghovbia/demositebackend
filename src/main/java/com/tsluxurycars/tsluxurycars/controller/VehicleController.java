@@ -36,7 +36,7 @@ public class VehicleController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle newVehicle) {
         return new ResponseEntity<>(vehicleService.createVehicle(newVehicle), HttpStatus.CREATED);
     }
