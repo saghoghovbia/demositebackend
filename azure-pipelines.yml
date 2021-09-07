@@ -26,10 +26,3 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'ts-luxury-cars-back-end'
     publishLocation: 'Container'
-# - task: AzureWebApp@1
-#   inputs:
-#     azureSubscription: 'Azure subscription 1(84ff124c-e2ae-44a4-8aac-f38d15a5a436)'
-#     appType: 'webAppLinux'
-#     appName: 'ts-luxury-cars-back-end'
-#     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-#     runtimeStack: 'JAVA|11-java11'
