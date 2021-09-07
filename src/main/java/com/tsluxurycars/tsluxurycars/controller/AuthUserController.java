@@ -25,10 +25,10 @@ public class AuthUserController {
         return new ResponseEntity<>(authUserService.createAuthUser(newAuthUser), HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody AuthUser authUser) {
-//        AuthUser user = AuthUserService
-
-        return null;
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity login(@RequestBody AuthUser authUser) {
+////        AuthUser user = AuthUserService
+//
+//        return null;
+//    }
 }
