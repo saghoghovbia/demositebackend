@@ -1,24 +1,24 @@
 package com.tsluxurycars.tsluxurycars.model;
 
+import com.tsluxurycars.tsluxurycars.constants.Role;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 public class AuthUser {
-    public AuthUser(String username, String password, List<String> authorities) {
+    public AuthUser(String username, String password, Role role) {
         this.username = username;
         this.password = password;
-        this.authorities = authorities;
+        this.role = role;
     }
 
     @Id
@@ -29,6 +29,5 @@ public class AuthUser {
 
     private String password;
 
-    @ElementCollection
-    private List<String> authorities;
+    private Role role;
 }

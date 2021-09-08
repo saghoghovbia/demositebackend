@@ -10,6 +10,6 @@ public interface VehicleService {
     Vehicle getVehicle(Long id) throws VehicleNotFoundException;
     Vehicle createVehicle(Vehicle newVehicle);
     Vehicle updateVehicle(Vehicle newVehicle, Long id);
-    void deleteVehicle(Long id);
+    void deleteVehicle(Long id) throws VehicleNotFoundException;
 }
 

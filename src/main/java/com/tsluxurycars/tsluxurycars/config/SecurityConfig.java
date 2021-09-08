@@ -34,7 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .antMatchers(HttpMethod.GET, "/vehicles/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/ping").permitAll()
-//                .antMatchers(HttpMethod.POST, "/vehicles").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new AuthenticationFilter(authenticationManager()))
