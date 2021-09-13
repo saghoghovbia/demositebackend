@@ -1,5 +1,7 @@
 package com.tsluxurycars.tsluxurycars.model;
 
+import com.tsluxurycars.tsluxurycars.constants.Role;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,9 +15,10 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Entity
 public class AuthUser {
-    public AuthUser(String username, String password) {
+    public AuthUser(String username, String password, Role role) {
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     @Id
@@ -25,4 +28,6 @@ public class AuthUser {
     private String username;
 
     private String password;
+
+    private Role role;
 }

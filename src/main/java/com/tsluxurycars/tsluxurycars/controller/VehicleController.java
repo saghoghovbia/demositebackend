@@ -1,7 +1,12 @@
 package com.tsluxurycars.tsluxurycars.controller;
 
+import com.tsluxurycars.tsluxurycars.constants.Role;
+import com.tsluxurycars.tsluxurycars.exception.AuthUserNotFoundException;
 import com.tsluxurycars.tsluxurycars.exception.VehicleNotFoundException;
+import com.tsluxurycars.tsluxurycars.model.AuthUser;
 import com.tsluxurycars.tsluxurycars.model.Vehicle;
+import com.tsluxurycars.tsluxurycars.service.AuthUserService;
+import com.tsluxurycars.tsluxurycars.service.AuthUserServiceImpl;
 import com.tsluxurycars.tsluxurycars.service.VehicleService;
 import com.tsluxurycars.tsluxurycars.service.VehicleServiceImpl;
 
@@ -15,9 +20,11 @@ import java.util.List;
 @RequestMapping("/vehicles")
 public class VehicleController {
     private final VehicleService vehicleService;
+    private final AuthUserService authUserService;
 
-    public VehicleController(VehicleServiceImpl vehicleServiceImpl) {
+    public VehicleController(VehicleServiceImpl vehicleServiceImpl, AuthUserServiceImpl authUserService) {
         this.vehicleService = vehicleServiceImpl;
+        this.authUserService = authUserService;
     }
 
     @GetMapping("")
@@ -36,19 +43,74 @@ public class VehicleController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle newVehicle) {
-        return new ResponseEntity<>(vehicleService.createVehicle(newVehicle), HttpStatus.CREATED);
+    @PostMapping("")
+    public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle newVehicle, @RequestParam Long userID) {
+        AuthUser authUser = null;
+
+        try {
+            authUser = authUserService.findById(userID);
+        } catch (AuthUserNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        if (authUser == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if (authUser.getRole() == Role.ADMIN) {
+            return new ResponseEntity<>(vehicleService.createVehicle(newVehicle), HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Vehicle> updateVehicle(@RequestBody Vehicle newVehicle, @PathVariable Long id) {
-        return ResponseEntity.ok(vehicleService.updateVehicle(newVehicle, id));
+    public ResponseEntity<Vehicle> updateVehicle(@RequestBody Vehicle newVehicle, @PathVariable Long id, @RequestParam Long userID) {
+        AuthUser authUser = null;
+
+        try {
+            authUser = authUserService.findById(userID);
+        } catch (AuthUserNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        if (authUser == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if (authUser.getRole() == Role.ADMIN) {
+            return ResponseEntity.ok(vehicleService.updateVehicle(newVehicle, id));
+        }
+
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteVehicle(@PathVariable Long id) {
-        vehicleService.deleteVehicle(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteVehicle(@PathVariable Long id, @RequestParam Long userID) {
+        AuthUser authUser = null;
+
+        try {
+            authUser = authUserService.findById(userID);
+        } catch (AuthUserNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        if (authUser == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if (authUser.getRole() == Role.ADMIN) {
+            try {
+                vehicleService.deleteVehicle(id);
+            } catch (VehicleNotFoundException e) {
+                e.printStackTrace();
+
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+            return ResponseEntity.noContent().build();
+        }
+
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 }

@@ -45,8 +45,11 @@ public class VehicleServiceImpl implements VehicleService {
                 });
     }
 
-    // TODO: NEED TO ADD NOT FOUND EXCEPTION
-    public void deleteVehicle(Long id) {
-        vehicleRepository.deleteById(id);
+    public void deleteVehicle(Long id) throws VehicleNotFoundException {
+        if (vehicleRepository.existsById(id)) {
+            vehicleRepository.deleteById(id);
+        } else {
+            throw new VehicleNotFoundException(id);
+        }
     }
 }
