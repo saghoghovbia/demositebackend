@@ -32,6 +32,40 @@ public class VehicleController {
         return ResponseEntity.ok(vehicleService.getAllVehicles());
     }
 
+    @GetMapping("/{make}")
+    public ResponseEntity<List<Vehicle>> getAllVehiclesByMake(@PathVariable String make) {
+        return ResponseEntity.ok(vehicleService.getAllVehiclesByMake(make));
+    }
+
+    @GetMapping("/{price}")
+    public ResponseEntity<List<Vehicle>> getAllVehiclesByPrice(@PathVariable Long price,
+                                                                                 @RequestParam String filter) {
+        if (filter.equalsIgnoreCase("greater")) {
+            return ResponseEntity.ok(vehicleService.getAllVehiclesByPriceGreaterThanOrEqual(price));
+        } else if (filter.equalsIgnoreCase("less")) {
+            return ResponseEntity.ok(vehicleService.getAllVehiclesByPriceLessThanOrEqual(price));
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/{year}")
+    public ResponseEntity<List<Vehicle>> getAllVehiclesByYear(@PathVariable int year,
+                                                               @RequestParam String filter) {
+        if (filter.equalsIgnoreCase("greater")) {
+            return ResponseEntity.ok(vehicleService.getAllVehiclesByYearGreaterThanOrEqual(year));
+        } else if (filter.equalsIgnoreCase("less")) {
+            return ResponseEntity.ok(vehicleService.getAllVehiclesByYearLessThanOrEqual(year));
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/{engine}")
+    public ResponseEntity<List<Vehicle>> getAllVehiclesByEngine(@PathVariable String engine) {
+        return ResponseEntity.ok(vehicleService.getAllVehiclesByEngine(engine));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Vehicle> getVehicle(@PathVariable Long id) {
         try {

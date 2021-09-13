@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Entity
 public class Vehicle {
-    public Vehicle(String make, String model, int year, String engine, double price) {
+    public Vehicle(String make, String model, int year, String engine, Long price) {
         this.make = make;
         this.model = model;
         this.year = year;
@@ -33,5 +33,5 @@ public class Vehicle {
 
     private String engine;
 
-    private double price;
+    private Long price;
 }

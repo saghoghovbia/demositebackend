@@ -3,14 +3,17 @@ package com.tsluxurycars.tsluxurycars.service;
 import com.tsluxurycars.tsluxurycars.exception.VehicleNotFoundException;
 import com.tsluxurycars.tsluxurycars.model.Vehicle;
 import com.tsluxurycars.tsluxurycars.repository.VehicleRepository;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,6 +33,15 @@ class VehicleServiceImplTest {
         Mockito.when(vehicleRepository.findAll()).thenReturn(Arrays.asList(new Vehicle(), new Vehicle()));
 
         assertThat(vehicleService.getAllVehicles(), is(notNullValue()));
+    }
+
+    @Test
+    void getAllVehiclesByMake() {
+        Vehicle vehicle = new Vehicle("Porsche", "911", 2008, "V8", 65000L);
+
+        Mockito.when(vehicleRepository.findAllByMake("Porsche")).thenReturn(List.of(vehicle));
+
+        assertThat(vehicleService.getAllVehiclesByMake("Porsche").get(0).getMake(), is("Porsche"));
     }
 
     @Test
@@ -64,9 +76,9 @@ class VehicleServiceImplTest {
     void updateVehicle() {
         Long id = 1L;
 
-        Vehicle vehicle = new Vehicle("Porsche", "911", 2008, "V8", 65000);
+        Vehicle vehicle = new Vehicle("Porsche", "911", 2008, "V8", 65000L);
         vehicle.setId(id);
-        Vehicle newVehicle = new Vehicle("Porsche", "911", 2010, "V8", 65000);
+        Vehicle newVehicle = new Vehicle("Porsche", "911", 2010, "V8", 65000L);
 
         Mockito.when(vehicleRepository.findById(id)).thenReturn(Optional.of(vehicle));
 

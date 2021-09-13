@@ -20,6 +20,30 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicleRepository.findAll();
     }
 
+    public List<Vehicle> getAllVehiclesByMake(String make) {
+        return vehicleRepository.findAllByMake(make);
+    }
+
+    public List<Vehicle> getAllVehiclesByPriceGreaterThanOrEqual(Long price) {
+        return vehicleRepository.findAllByPriceIsGreaterThanEqual(price);
+    }
+
+    public List<Vehicle> getAllVehiclesByPriceLessThanOrEqual(Long price) {
+        return vehicleRepository.findAllByPriceIsLessThanEqual(price);
+    }
+
+    public List<Vehicle> getAllVehiclesByYearGreaterThanOrEqual(int year) {
+        return vehicleRepository.findAllByYearIsGreaterThanEqual(year);
+    }
+
+    public List<Vehicle> getAllVehiclesByYearLessThanOrEqual(int year) {
+        return vehicleRepository.findAllByYearIsLessThanEqual(year);
+    }
+
+    public List<Vehicle> getAllVehiclesByEngine(String engine) {
+        return vehicleRepository.findAllByEngine(engine);
+    }
+
     public Vehicle getVehicle(Long id) throws VehicleNotFoundException {
         return vehicleRepository.findById(id).orElseThrow(() -> new VehicleNotFoundException(id));
     }
