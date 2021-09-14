@@ -15,9 +15,10 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Entity
 public class AuthUser {
-    public AuthUser(String username, String password, Role role) {
+    public AuthUser(String username, String password, String email, Role role) {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.role = role;
     }
 
@@ -28,6 +29,8 @@ public class AuthUser {
     private String username;
 
     private String password;
+
+    private String email;
 
     private Role role;
 }

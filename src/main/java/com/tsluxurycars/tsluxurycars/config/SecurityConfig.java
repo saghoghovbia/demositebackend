@@ -1,5 +1,6 @@
 package com.tsluxurycars.tsluxurycars.config;
 
+import com.tsluxurycars.tsluxurycars.repository.AuthUserRepository;
 import com.tsluxurycars.tsluxurycars.service.AuthUserDetailsService;
 import com.tsluxurycars.tsluxurycars.security.AuthenticationFilter;
 import com.tsluxurycars.tsluxurycars.security.AuthorizationFilter;
@@ -22,10 +23,12 @@ import static com.tsluxurycars.tsluxurycars.constants.SecurityConstants.SIGN_UP_
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthUserDetailsService authUserDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final AuthUserRepository authUserRepository;
 
-    public SecurityConfig(AuthUserDetailsService authUserDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public SecurityConfig(AuthUserDetailsService authUserDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder, AuthUserRepository authUserRepository) {
         this.authUserDetailsService = authUserDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.authUserRepository = authUserRepository;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/ping").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new AuthenticationFilter(authenticationManager()))
+                .addFilter(new AuthenticationFilter(authenticationManager(), this.authUserRepository))
                 .addFilter(new AuthorizationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

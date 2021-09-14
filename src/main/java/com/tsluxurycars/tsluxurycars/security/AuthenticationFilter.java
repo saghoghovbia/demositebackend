@@ -4,11 +4,13 @@ import com.tsluxurycars.tsluxurycars.model.AuthUser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.tsluxurycars.tsluxurycars.repository.AuthUserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,9 +32,11 @@ import static com.tsluxurycars.tsluxurycars.constants.SecurityConstants.KEY;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
+    private final AuthUserRepository authUserRepository;
 
-    public AuthenticationFilter(AuthenticationManager authenticationManager) {
+    public AuthenticationFilter(AuthenticationManager authenticationManager, AuthUserRepository authUserRepository) {
         this.authenticationManager = authenticationManager;
+        this.authUserRepository = authUserRepository;
     }
 
     @Override
@@ -58,5 +62,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         Claims claims = Jwts.claims().setSubject(((User) auth.getPrincipal()).getUsername());
         String token = Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, key).setExpiration(exp).compact();
         res.addHeader("token", token);
+
+        AuthUser authUser = authUserRepository.findByUsername(((User) auth.getPrincipal()).getUsername());
+        res.addHeader("role", authUser.getRole().toString());
     }
 }
