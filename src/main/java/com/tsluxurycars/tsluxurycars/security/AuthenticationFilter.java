@@ -65,5 +65,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
         AuthUser authUser = authUserRepository.findByUsername(((User) auth.getPrincipal()).getUsername());
         res.addHeader("role", authUser.getRole().toString());
+        res.addHeader("userID", authUser.getId().toString());
     }
 }
