@@ -37,7 +37,7 @@ class VehicleServiceImplTest {
 
     @Test
     void getAllVehiclesByMake() {
-        Vehicle vehicle = new Vehicle("Porsche", "911", 2008, "V8", 65000L);
+        Vehicle vehicle = new Vehicle("Porsche", "911", 2008, "V8", 65000L, null);
 
         Mockito.when(vehicleRepository.findAllByMake("Porsche")).thenReturn(List.of(vehicle));
 
@@ -76,9 +76,9 @@ class VehicleServiceImplTest {
     void updateVehicle() {
         Long id = 1L;
 
-        Vehicle vehicle = new Vehicle("Porsche", "911", 2008, "V8", 65000L);
+        Vehicle vehicle = new Vehicle("Porsche", "911", 2008, "V8", 65000L, null);
         vehicle.setId(id);
-        Vehicle newVehicle = new Vehicle("Porsche", "911", 2010, "V8", 65000L);
+        Vehicle newVehicle = new Vehicle("Porsche", "911", 2010, "V8", 65000L, null);
 
         Mockito.when(vehicleRepository.findById(id)).thenReturn(Optional.of(vehicle));
 
