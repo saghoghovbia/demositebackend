@@ -61,6 +61,7 @@ public class VehicleServiceImpl implements VehicleService {
                     vehicle.setYear(newVehicle.getYear());
                     vehicle.setEngine(newVehicle.getEngine());
                     vehicle.setPrice(newVehicle.getPrice());
+                    vehicle.setImageLink(newVehicle.getImageLink());
                     return vehicleRepository.save(vehicle);
                 })
                 .orElseGet(() -> {
