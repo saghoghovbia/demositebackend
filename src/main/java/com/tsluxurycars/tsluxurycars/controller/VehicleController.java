@@ -37,7 +37,7 @@ public class VehicleController {
         return ResponseEntity.ok(vehicleService.getAllVehiclesByMake(make));
     }
 
-    @GetMapping("/{price}")
+    @GetMapping("/price/{price}")
     public ResponseEntity<List<Vehicle>> getAllVehiclesByPrice(@PathVariable Long price,
                                                                                  @RequestParam String filter) {
         if (filter.equalsIgnoreCase("greater")) {
@@ -49,7 +49,7 @@ public class VehicleController {
         return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/{year}")
+    @GetMapping("/year/{year}")
     public ResponseEntity<List<Vehicle>> getAllVehiclesByYear(@PathVariable int year,
                                                                @RequestParam String filter) {
         if (filter.equalsIgnoreCase("greater")) {
