@@ -61,7 +61,7 @@ public class VehicleController {
         return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/{engine}")
+    @GetMapping("/engine/{engine}")
     public ResponseEntity<List<Vehicle>> getAllVehiclesByEngine(@PathVariable String engine) {
         return ResponseEntity.ok(vehicleService.getAllVehiclesByEngine(engine));
     }
