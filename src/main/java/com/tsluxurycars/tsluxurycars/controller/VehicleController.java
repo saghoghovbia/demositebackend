@@ -32,7 +32,7 @@ public class VehicleController {
         return ResponseEntity.ok(vehicleService.getAllVehicles());
     }
 
-    @GetMapping("/{make}")
+    @GetMapping("/make/{make}")
     public ResponseEntity<List<Vehicle>> getAllVehiclesByMake(@PathVariable String make) {
         return ResponseEntity.ok(vehicleService.getAllVehiclesByMake(make));
     }
